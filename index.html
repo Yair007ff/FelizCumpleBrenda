@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>¡Feliz Cumpleaños Brenda!</title>
+  <style>
+    /* Tu CSS original, sin cambios excepto la parte nueva abajo */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(to top right, #ff9a9e, #fad0c4);
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      position: relative;
+    }
+
+    /* NUEVO: Contenedor para el card con diseño externo */
+    .card-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 2rem;
+      border-radius: 40px;
+      box-shadow:
+        0 0 30px 10px rgba(255, 64, 129, 0.4),
+        0 0 50px 20px rgba(255, 105, 180, 0.3);
+      animation: pulseGlow 3s ease-in-out infinite;
+      z-index: 10; /* Para que esté arriba de globos y confetti */
+    }
+
+    .card-wrapper::before,
+    .card-wrapper::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.7;
+      animation: rotateLines 8s linear infinite;
+      border: 2px solid transparent;
+      border-top-color: #ff4081;
+      border-bottom-color: #ff69b4;
+      top: -25px;
+      left: -25px;
+      right: -25px;
+      bottom: -25px;
+      z-index: -1; /* Detrás de la tarjeta */
+    }
+
+    .card-wrapper::after {
+      animation-delay: 4s;
+      border-top-color: #ff69b4;
+      border-bottom-color: #ff4081;
+      top: -40px;
+      left: -40px;
+      right: -40px;
+      bottom: -40px;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        box-shadow:
+          0 0 30px 10px rgba(255, 64, 129, 0.4),
+          0 0 50px 20px rgba(255, 105, 180, 0.3);
+      }
+      50% {
+        box-shadow:
+          0 0 40px 15px rgba(255, 64, 129, 0.7),
+          0 0 60px 30px rgba(255, 105, 180, 0.6);
+      }
+    }
+
+    @keyframes rotateLines {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Aquí tu CSS original para .card, con posición relativa para que no afecte */
+    .card {
+      background: white;
+      padding: 2.5rem 4rem;
+      border-radius: 30px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+      text-align: center;
+      max-width: 600px;
+      position: relative;
+      animation: fadeIn 2s ease-out;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      color: #ff4081;
+      margin-bottom: 1.2rem;
+      font-weight: bold;
+      text-shadow:
+        0 0 5px #fff,
+        0 0 10px #ff69b4,
+        0 0 20px #ff69b4,
+        0 0 30px #ff1493,
+        0 0 40px #ff1493,
+        0 0 50px #ff1493;
+      animation: glow 2s ease-in-out infinite alternate, bounce 1.5s infinite;
+      letter-spacing: 2px;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow:
+          0 0 5px #fff,
+          0 0 10px #ff69b4,
+          0 0 20px #ff69b4,
+          0 0 30px #ff1493,
+          0 0 40px #ff1493,
+          0 0 50px #ff1493;
+      }
+      to {
+        text-shadow:
+          0 0 10px #fff,
+          0 0 20px #ff69b4,
+          0 0 30px #ff1493,
+          0 0 40px #ff1493,
+          0 0 50px #ff69b4,
+          0 0 60px #ff69b4;
+      }
+    }
+
+    p {
+      font-size: 1.4rem;
+      color: #444;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      animation: fadeInUp 2s ease-out 1s both;
+      font-style: italic;
+    }
+
+    .balloons {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .balloon {
+      position: absolute;
+      bottom: -150px;
+      width: 60px;
+      height: 80px;
+      background: radial-gradient(circle at 30% 30%, #ff6f91, #ff007f);
+      border-radius: 50% 50% 45% 45%;
+      animation: float 8s infinite ease-in-out;
+      opacity: 0.8;
+    }
+
+    .balloon::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      width: 2px;
+      height: 30px;
+      background: #444;
+      transform: translateX(-50%);
+    }
+
+    .confetti {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: hsl(calc(360 * var(--i)), 80%, 60%);
+      top: -10px;
+      left: calc(100% * var(--j));
+      animation: fall 5s linear infinite;
+      opacity: 0.8;
+      transform: rotateZ(0deg);
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      20% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+
+    button {
+      padding: 0.8rem 1.8rem;
+      font-size: 1.1rem;
+      background: linear-gradient(45deg, #ff6f91, #ff4081);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      animation: fadeInUp 2s ease-out 2s both;
+      box-shadow: 0 4px 10px rgba(255, 64, 129, 0.4);
+      outline: none;
+      user-select: none;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #ff3366, #ff0066);
+    }
+
+    button:active {
+      transform: scale(0.9);
+      box-shadow: 0 2px 6px rgba(255, 20, 80, 0.7);
+      background: linear-gradient(45deg, #ff0055, #ff0044);
+    }
+
+    footer {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 1.5rem;
+      color: #ff4081;
+      font-weight: 600;
+      text-shadow:
+        0 0 3px #fff,
+        0 0 5px #ff69b4;
+      pointer-events: none; /* para que no interfiera con clics */
+      user-select: none;
+      z-index: 15; /* más alto que todo */
+    } 
+  </style>
+</head>
+<body>
+  <div class="balloons">
+    <div class="balloon" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="balloon" style="left: 25%; animation-delay: 1s;"></div>
+    <div class="balloon" style="left: 40%; animation-delay: 2s;"></div>
+    <div class="balloon" style="left: 60%; animation-delay: 3s;"></div>
+    <div class="balloon" style="left: 75%; animation-delay: 4s;"></div>
+    <div class="balloon" style="left: 90%; animation-delay: 5s;"></div>
+  </div>
+
+  <div class="confetti">
+    <script>
+      const confettiContainer = document.currentScript.parentElement;
+      for (let i = 0; i < 100; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.setProperty('--i', Math.random());
+        piece.style.setProperty('--j', Math.random());
+        piece.style.animationDuration = (3 + Math.random() * 3) + 's';
+        piece.style.animationDelay = Math.random() * 5 + 's';
+        confettiContainer.appendChild(piece);
+      }
+    </script>
+  </div>
+
+  <!-- Envuelvo el card dentro del nuevo contenedor .card-wrapper -->
+  <div class="card-wrapper">
+    <div class="card">
+      <h1>🎂✨ ¡Feliz 20 Vueltas al Sol, Brenda! ✨🎂</h1>
+      <p>
+        Hoy celebramos tus 20 años con alegría, risas y un millón de buenos deseos. Eres una chica increíble, extrovertida y llena de energía que ilumina cada lugar con su sola presencia. Nunca dejes de soñar en grande, de reír como solo tú sabes hacerlo. ¡Este es tu momento, tu año, tu historia! Sigue siendo tan auténtica, divertida y maravillosa como siempre. 💖🥂🎂
+      </p>
+      <a href="mensaje.html" class="button-link"><button>¡Vamos a Celebrar!</button></a>
+    </div>
+  </div>
+
+   <footer>Atte_Yair Tapia</footer>
+</body>
+</html>

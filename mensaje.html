@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mensaje para Brenda</title>
+  <style>
+    /* Reset y estilos base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(to top right, #ff9a9e, #fad0c4);
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .card-wrapper {
+      position: relative;
+      padding: 2rem;
+      border-radius: 40px;
+      box-shadow:
+        0 0 30px 10px rgba(255, 64, 129, 0.4),
+        0 0 50px 20px rgba(255, 105, 180, 0.3);
+      animation: pulseGlow 3s ease-in-out infinite;
+      z-index: 10;
+      background: transparent;
+    }
+
+    .card-wrapper::before,
+    .card-wrapper::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.7;
+      animation: rotateLines 8s linear infinite;
+      border: 2px solid transparent;
+      border-top-color: #ff4081;
+      border-bottom-color: #ff69b4;
+      top: -25px;
+      left: -25px;
+      right: -25px;
+      bottom: -25px;
+      z-index: 0;
+    }
+
+    .card-wrapper::after {
+      animation-delay: 4s;
+      border-top-color: #ff69b4;
+      border-bottom-color: #ff4081;
+      top: -40px;
+      left: -40px;
+      right: -40px;
+      bottom: -40px;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        box-shadow:
+          0 0 30px 10px rgba(255, 64, 129, 0.4),
+          0 0 50px 20px rgba(255, 105, 180, 0.3);
+      }
+      50% {
+        box-shadow:
+          0 0 40px 15px rgba(255, 64, 129, 0.7),
+          0 0 60px 30px rgba(255, 105, 180, 0.6);
+      }
+    }
+
+    @keyframes rotateLines {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .card {
+      background: white;
+      padding: 2.5rem 4rem;
+      border-radius: 30px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
+      position: relative;
+      z-index: 10;
+      animation: fadeIn 2s ease-out;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      color: #ff4081;
+      margin-bottom: 1.2rem;
+      font-weight: bold;
+      text-shadow:
+        0 0 5px #fff,
+        0 0 10px #ff69b4,
+        0 0 20px #ff69b4,
+        0 0 30px #ff1493,
+        0 0 40px #ff1493,
+        0 0 50px #ff1493;
+      animation: glow 2s ease-in-out infinite alternate, bounce 1.5s infinite;
+      letter-spacing: 2px;
+      position: relative;
+    }
+
+    .taco-emoji {
+      display: inline-block;
+      animation: tacoFloat 3s ease-in-out infinite;
+      transform-origin: 50% 70%;
+    }
+
+    .taco-emoji.left { animation-delay: 0s; }
+    .taco-emoji.right { animation-delay: 1.5s; }
+
+    @keyframes tacoFloat {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg) scale(1);
+        filter: drop-shadow(0 0 2px #ff6f91);
+      }
+      50% {
+        transform: translateY(-10px) rotate(10deg) scale(1.1);
+        filter: drop-shadow(0 0 8px #ff1493);
+      }
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow:
+          0 0 5px #fff,
+          0 0 10px #ff69b4,
+          0 0 20px #ff69b4,
+          0 0 30px #ff1493,
+          0 0 40px #ff1493,
+          0 0 50px #ff1493;
+      }
+      to {
+        text-shadow:
+          0 0 10px #fff,
+          0 0 20px #ff69b4,
+          0 0 30px #ff1493,
+          0 0 40px #ff1493,
+          0 0 50px #ff69b4,
+          0 0 60px #ff69b4;
+      }
+    }
+
+    p {
+      font-size: 1.4rem;
+      color: #444;
+      line-height: 1.7;
+      font-style: italic;
+      animation: fadeInUp 2s ease-out 1s both;
+    }
+
+    button {
+      padding: 0.8rem 1.8rem;
+      font-size: 1.1rem;
+      background: linear-gradient(45deg, #ff6f91, #ff4081);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      animation: fadeInUp 2s ease-out 2s both;
+      box-shadow: 0 4px 10px rgba(255, 64, 129, 0.4);
+      outline: none;
+      user-select: none;
+      margin-top: 2rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #ff3366, #ff0066);
+    }
+
+    button:active {
+      transform: scale(0.9);
+      box-shadow: 0 2px 6px rgba(255, 20, 80, 0.7);
+      background: linear-gradient(45deg, #ff0055, #ff0044);
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .confetti {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: visible;
+      pointer-events: none;
+      z-index: 5;
+      user-select: none;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: hsl(calc(360 * var(--i)), 80%, 60%);
+      top: -10px;
+      left: calc(100% * var(--j));
+      animation: fall 5s linear infinite;
+      opacity: 0.8;
+      transform: rotateZ(0deg);
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+
+    footer {
+      position: fixed;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 1.5rem;
+      color: #ff4081;
+      font-weight: 600;
+      text-shadow: 0 0 6px #fff, 0 0 8px #ff69b4;
+      pointer-events: none;
+      user-select: none;
+      z-index: 15;
+    }
+
+    /* 💡 ADAPTABILIDAD MÓVIL */
+    @media (max-width: 600px) {
+      .card {
+        padding: 2rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+      }
+
+      button {
+        font-size: 1rem;
+        padding: 0.6rem 1.4rem;
+      }
+
+      footer {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="confetti">
+    <script>
+      const confettiContainer = document.currentScript.parentElement;
+      for (let i = 0; i < 100; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.setProperty('--i', Math.random());
+        piece.style.setProperty('--j', Math.random());
+        piece.style.animationDuration = (3 + Math.random() * 3) + 's';
+        piece.style.animationDelay = Math.random() * 5 + 's';
+        confettiContainer.appendChild(piece);
+      }
+    </script>
+  </div>
+
+  <div class="card-wrapper">
+    <div class="card">
+      <h1>
+        <span class="taco-emoji left">🌮</span>
+        VAMOS POR UNOS TACOS CUANDO VENGAS
+        <span class="taco-emoji right">🌮</span>
+      </h1>
+      <p>
+        En este día tan especial, deseo que cada momento se llene de magia y alegría. Que nunca falten las risas, las aventuras, ni los sueños por cumplir. 
+        Espero una respuesta eh
+      </p>
+      <button onclick="window.location.href='index.html'">Volver</button>
+    </div>
+  </div>
+
+  <footer>Atte_Yair Tapia</footer>
+</body>
+</html>
